@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #2563eb;
+  --color-brand-bg: #0f172a;
+  --color-brand-glass: rgba(255, 255, 255, 0.05);
+  --color-brand-glass-border: rgba(255, 255, 255, 0.1);
+  
+  --font-sans: "Inter", "Outfit", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  @apply bg-[#030712] text-slate-100 antialiased;
+  background: radial-gradient(circle at 50% -20%, #1e293b 0%, #030712 100%);
+  min-height: 100vh;
+}
+
+.glass-card {
+  @apply bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl;
+}
+
+.glass-input {
+  @apply bg-white/5 border border-white/10 backdrop-blur-xl rounded-lg px-4 py-2 outline-none focus:border-brand-blue/50 transition-all;
+}
+
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full transition-all shadow-lg shadow-blue-500/20 active:scale-95;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+}
