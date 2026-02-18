@@ -40,7 +40,8 @@ export const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
   const handleSubmit = async () => {
     setStatus('loading');
     try {
-      const { error } = await supabase
+      // 1. Save to Supabase
+      const { error: supabaseError } = await supabase
         .from('waitlist')
         .insert([{ 
           full_name: formData.name, 
@@ -50,10 +51,33 @@ export const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
           categories: formData.categories
         }]);
       
-      if (error) throw error;
+      if (supabaseError) throw supabaseError;
+
+      // 2. Send to n8n Webhook
+      const WEBHOOK_URL = 'https://n8n-nzs8.onrender.com/webhook/68389bbe-93f8-4512-a184-f919ca05f8a9';
+      
+      const dynamicPrompt = `New MailDraft Waitlist Signup:
+- Name: ${formData.name}
+- Email: ${formData.email}
+- Daily Emails: ${formData.frequency}
+- Interested Categories: ${formData.categories.join(', ') || 'None selected'}
+- Biggest Challenge: ${formData.challenge || 'No challenge provided'}`;
+
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          prompt_context: dynamicPrompt,
+          submitted_at: new Date().toISOString()
+        }),
+      });
+
       setStatus('success');
     } catch (err: any) {
-      console.error('Supabase Error:', err);
+      console.error('Submission Error:', err);
       if (err.code === '23505') { // Unique violation
         setStatus('duplicate');
       } else {
