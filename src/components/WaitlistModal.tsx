@@ -54,7 +54,7 @@ export const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
       if (supabaseError) throw supabaseError;
 
       // 2. Send to n8n Webhook
-      const WEBHOOK_URL = 'https://n8n-nzs8.onrender.com/webhook/68389bbe-93f8-4512-a184-f919ca05f8a9';
+      const WEBHOOK_URL = 'https://hook.us2.make.com/npoz8hv11euq2t388uhdkz99c8ddsyll';
       
       const dynamicPrompt = `New MailDraft Waitlist Signup:
 - Name: ${formData.name}
