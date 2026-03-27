@@ -1,73 +1,47 @@
-import { Mail, Twitter, Github, ArrowRight } from 'lucide-react';
 
 interface FooterProps {
   onJoinClick: () => void;
 }
 
 export const Footer = ({ onJoinClick }: FooterProps) => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <footer className="py-24 px-6 border-t border-white/5 bg-black/20">
-      {/* Footer CTA */}
-      <div className="max-w-6xl mx-auto mb-24">
-        <div className="glass-card p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full -z-10" />
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl md:text-4xl font-bold mb-4">Ready to perfect your emails?</h3>
-            <p className="text-slate-400">Join 2,000+ professionals using MailDraft templates.</p>
+    <footer className="py-24 px-6 border-t border-white/[0.05] bg-[#020617]">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-16 text-sm">
+        <div className="flex gap-16 flex-1">
+          <div>
+            <h4 className="font-bold mb-6 text-white text-xs uppercase tracking-[0.2em]">Links</h4>
+            <ul className="space-y-4 text-slate-400 font-medium">
+              <li><a href="#features" onClick={(e) => handleScrollTo(e, 'features')} className="hover:text-brand-primary transition-colors">Features</a></li>
+              <li><a href="#benefits" onClick={(e) => handleScrollTo(e, 'benefits')} className="hover:text-brand-primary transition-colors">Benefits</a></li>
+              <li><a href="#how-it-works" onClick={(e) => handleScrollTo(e, 'how-it-works')} className="hover:text-brand-primary transition-colors">How it Works</a></li>
+            </ul>
           </div>
+        </div>
+
+        <div className="flex flex-col items-start md:items-end">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
+              <img src="/logo.png" alt="MailDraft Logo" className="w-full h-full object-contain" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-white mb-0">MailDraft</span>
+          </div>
+          <p className="text-slate-400 mb-6 max-w-xs md:text-right">
+            The premium way to craft professional emails.
+          </p>
           <button 
             onClick={onJoinClick}
-            className="btn-primary flex items-center gap-2 whitespace-nowrap group"
+            className="btn-primary py-2.5! px-6! text-sm!"
           >
-            Join Waitlist
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            Get Early Access
           </button>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-        <div className="col-span-1 md:col-span-2 space-y-6">
-          <div className="flex items-center gap-2">
-            <Mail className="w-6 h-6 text-blue-500" />
-            <span className="text-xl font-bold tracking-tight text-white">MailDraft</span>
-          </div>
-          <p className="text-slate-400 max-w-sm">
-            MailDraft is a smart template library that helps professionals stop staring at blank drafts and start sounding like experts.
-          </p>
-          <div className="flex gap-4">
-            <a href="#" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-              <Twitter className="w-5 h-5 text-slate-300" />
-            </a>
-            <a href="#" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-              <Github className="w-5 h-5 text-slate-300" />
-            </a>
-          </div>
-        </div>
-        
-        <div>
-          <h4 className="font-bold mb-6 text-white text-sm uppercase tracking-wider">Product</h4>
-          <ul className="space-y-4 text-sm text-slate-400">
-            <li><a href="#" className="hover:text-blue-500 transition-colors">Documentation</a></li>
-            <li><a href="#" className="hover:text-blue-500 transition-colors">API Reference</a></li>
-            <li><a href="#" className="hover:text-blue-500 transition-colors">Integrations</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 className="font-bold mb-6 text-white text-sm uppercase tracking-wider">Company</h4>
-          <ul className="space-y-4 text-sm text-slate-400">
-            <li><a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a></li>
-            <li><a href="#" className="hover:text-blue-500 transition-colors">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-        <p>© 2024 MailDraft Inc. Built for high-growth teams.</p>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500" />
-          <span>Built with MailDraft Library</span>
         </div>
       </div>
     </footer>
